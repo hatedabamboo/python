@@ -1,3 +1,5 @@
+# Written with passion by @hatedabamboo
+
 import requests
 import random
 import re
