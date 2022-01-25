@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+# Written with passion by @hatedabamboo
+
 import datetime
 import os
 import sqlite3
