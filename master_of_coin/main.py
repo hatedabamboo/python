@@ -8,6 +8,17 @@ import sqlite3
 
 
 DATABASE = "{}/{}.db".format(os.getenv('HOME'), os.getenv('USER'))
+CONFFIG = "{}/{}.conf".format(os.getenv('HOME'), os.getenv('USER'))
+
+
+def parseParams():
+    """
+    TODO:
+    Function to read default parameters from some json file (samename as database).
+    At some point in future i should make function to remember user's choice for
+    those parameters. If exists in json, than use them in queries (currencty for
+    example). If not, use some default value.
+    """
 
 
 def checkDatabase(path):
@@ -55,4 +66,25 @@ def insertData(input_data):
     conn.close()
 
 
-def selectData()
+# Select some data with ‘key’ as main query parameter and ‘value‘ as search string
+def selectData(key, value):
+    dates = ['day', 'month', 'year']
+    if key in dates:
+        date = str(value) + '%'
+        query = 'SELECT SUM(sum) FROM spendings WHERE date like ?'
+        conn = sqlite3.connect(DATABASE)
+        cur = conn.cursor()
+        try:
+            cur.execute(query, (date,))
+        except sqlite3.ProgrammingError:
+            print('Error while executing SELECT query with date parameter')
+    elif key == 'category':
+        category = value
+        query = 'SELECT SUM(sum) FROM spendings WHERE category = ?'
+        conn = sqlite3.connect(DATABASE)
+        cur = conn.cursor()
+        try:
+            cur.execute(query, (category,))
+        except sqlite3.ProgrammingError:
+            print('Error while executing SELECT query with category parameter')
+
